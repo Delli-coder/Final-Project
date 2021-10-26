@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+    {% for data in auction %}
+    <table class="table table-dark">
+          <thead>
+            <tr>
+                <th scope="col">Object</th>
+                <th scope="col">Description</th>
+                <th scope="col">Open price</th>
+                <th scope="col">Open date</th>
+                <th scope="col">Close date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ data.object }}</td>
+              <td>{{ data.description }}</td>
+              <td>$ {{ data.open_price }}</td>
+              <td>{{ data.open_data }}</td>
+              <td>{{ data.close_data }}</td>
+             </tr>
+          </tbody>
+    </table>
+    {% endfor %}
+    {% if tot_bets > 0 %}
+    <table class="table table-dark">
+          <thead>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">data</th>
+                <th scope="col">bet</th>
+            </tr>
+          </thead>
+           <tbody>
+            <tr>
+              <td>{{users}}</td>
+              <td>{{date}}</td>
+              <td>$ {{bets}}</td>
+             </tr>
+    </table>
+    {% else %}
+    <p>No bets yet</p>
+    {% endif %}
+    <form method="POST">
+                {% csrf_token %}
+    <input name="bet" type="number" placeholder="Inserisci BET" >
+        <button class="btn btn-outline-info" type="submit" value="POST">BET</button>
+    </form>
+{% endblock %}

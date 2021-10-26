@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="text-center">YOUR PROFILE</h1>
+    <table class="table table-dark">
+          <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Wallet</th>
+                <th scope="col">Total bets</th>
+                <th scope="col">Win Auctions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ profile.username }}</td>
+              <td>{{ profile.wallet }}</td>
+              <td>{{ profile.total_bet }}</td>
+              <td>{{ profile.wins }}</td>
+             </tr>
+          </tbody>
+        </table>
+{% endblock %}

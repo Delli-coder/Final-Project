@@ -1,0 +1,31 @@
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+p {
+    color: red;
+}
+
+/* navbar */
+.bg-steel {
+    background-color: #1C78BA;
+    border-color: #E7E7E7;
+}
+
+.site-header .navbar-brand {
+  color: #ffffff ;
+}
+
+
+.site-header .navbar-nav .nav-brand.active {
+  font-weight: 500;
+}
+
+.image {
+    size: 25px;
+}

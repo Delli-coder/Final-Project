@@ -1,0 +1,55 @@
+{% load static %}
+<!--DOCTYPE html -->
+<html>
+
+    <head>
+
+    <title>Auction platform</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" />
+
+    </head>
+
+    <body>
+      <header class="site-header">
+        <nav class="navbar navbar-dark bg-steel">
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+
+                 {% if user.is_authenticated %}
+                  <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+                  <a class="navbar-brand" href="{% url 'profile' %}">Profile</a>
+                  <a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
+                {% elif user.is_superuser %}
+                  <a class="navbar-brand" href="{% url 'new_auction' %}">Create new collection</a>
+                {% else %}
+                  <a class="navbar-brand" href="{% url 'login' %}">Login</a>
+                  <a class="navbar-brand" href="{% url 'registration' %}">Register</a>
+                {% endif %}
+          </div>
+        </nav>
+      </header>
+      <main role="main" class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-8">
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
+          </div>
+        </div>
+      </main>
+      <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>
