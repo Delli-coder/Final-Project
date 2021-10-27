@@ -6,7 +6,7 @@ from .models import *
 from django.contrib import messages
 import hashlib
 
-client = redis.Redis(host='localhost', port='6379', decode_responses=True)
+client = redis.Redis(host='127.0.0.1', port='6379', decode_responses=True)
 
 
 def add_data_redis(auction_id, price, date, user):
