@@ -12,7 +12,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-            new_prof = Profile.objects.create(user=user, username=user.username)
+            new_prof = Profile.objects.create(user=user, username=user.username)  # profilo creato con 1000 $
             new_prof.save()
             messages.success(request, f'Welcome!, {username}.')
             return redirect('login')
@@ -28,7 +28,7 @@ def new_auction(request):
         if form.is_valid():
             form.instance.open_data = datetime.now()
             form.save()
-            messages.success(request, 'Auction create')
+            messages.success(request, 'Auction create')  # nuova asta creata con i parametri scelti
             return redirect('new_auction')
     else:
         form = AuctionForm()
@@ -42,7 +42,7 @@ def betting(request):
     last_bets = last_bet(id_)
     last_users = last_user(id_)
     last_dates = last_date(id_)
-    check = check_data(auction[0].close_data)
+    check = check_data(auction[0].close_data)  # secondo check per la data di chiusura dell'asta
     all_bets = len_bets(id_)
     if check is True:
         if request.method == 'POST':
@@ -50,7 +50,8 @@ def betting(request):
             form = request.POST
             prof_user = Profile.objects.get(user=user)
             bet_price = form['bet']
-            if all_bets < 1:
+            if all_bets < 1:  # se non ci sono ancora scommesse effettuate,
+                # l'importo dovra essere maggiore dell'open price scelto alla creazione dell'asta
                 if float(bet_price) >= auction[0].open_price:
                     now = datetime.now()
                     add_data_redis(auction[0].id, bet_price, datetime.strftime(now, "%m/%d/%Y, %H:%M:%S"), user)
@@ -83,12 +84,14 @@ def betting(request):
 def home(request):
     auction = Auction.objects.filter(active=True)
     for data in auction:
-        check = check_data(data.close_data)
+        check = check_data(data.close_data)  # primo check data fine asta
         if check is False:
             data.active = False
             data.save()
-            check_winner(request, data.id)
-    check_prof = check_profile(request)
+            check_winner(request, data.id)  # funzione per aggiudicare il vincitore, creare il fileJson con i dettagli
+            # dell'asta conclusa ed invia l'hash del file Jsone in una transazione sulla blockchain
+    check_prof = check_profile(request)  # se il profilo utente ha il saldo negativo viene reindirizzato alla pagina
+    # personale invitando di effettuare il pagamento
     if check_prof is True:
         return redirect('profile')
     auctions_open = Auction.objects.filter(active=True)

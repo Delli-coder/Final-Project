@@ -14,8 +14,8 @@ class Profile(models.Model):
 class Auction(models.Model):
     object = models.CharField(max_length=50)
     description = models.CharField(max_length=256, default='')
-    open_data = models.DateTimeField()
-    close_data = models.DateTimeField()
+    open_date = models.DateTimeField()
+    close_date = models.DateTimeField()
     total_bet = models.IntegerField(default=0)
     open_price = models.FloatField(default=0)
     close_price = models.FloatField(default=0)

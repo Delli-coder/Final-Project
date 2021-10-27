@@ -10,4 +10,3 @@ setuptools==57.0.0
 sqlparse==0.2.4
 typing-extensions==3.10.0.2
 wheel==0.36.2
-redislite==6.0.674960
