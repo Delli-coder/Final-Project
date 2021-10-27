@@ -1,12 +1,12 @@
 import json
 from web3 import Web3
-from redislite import Redis
+import redis
 from datetime import *
 from .models import *
 from django.contrib import messages
 import hashlib
 
-client = Redis('/tmp/redis.db')
+client = redis.Redis(host='127.0.0.1', port='6379', decode_responses=True)
 
 
 def add_data_redis(auction_id, price, date, user):
