@@ -37,6 +37,9 @@ def new_auction(request):
 
 @login_required(login_url='login')
 def betting(request):
+    if request.user.is_superuser:
+        messages.error(request, 'super user can access to admin/ and new_auction page only')
+        return redirect('new_auction')
     id_ = request.session.get('selected_id')
     auction = Auction.objects.filter(id=id_)
     last_bets = last_bet(id_)
@@ -82,6 +85,9 @@ def betting(request):
 
 @login_required(login_url='login')
 def home(request):
+    if request.user.is_superuser:
+        messages.error(request, 'super user can access to admin/ and new_auction page only')
+        return redirect('new_auction')
     auction = Auction.objects.filter(active=True)
     for data in auction:
         check = check_data(data.close_date)  # primo check data fine asta
@@ -107,6 +113,9 @@ def home(request):
 
 @login_required(login_url='login')
 def info_profile(request):
+    if request.user.is_superuser:
+        messages.error(request, 'super user can access to admin/ and new_auction page only')
+        return redirect('new_auction')
     user = request.user
     profile = Profile.objects.get(user=user)
     if profile.wallet < 0:
