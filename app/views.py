@@ -26,7 +26,7 @@ def new_auction(request):
     if request.method == 'POST':
         form = AuctionForm(request.POST)
         if form.is_valid():
-            form.instance.open_data = datetime.now()
+            form.instance.open_date = datetime.now()
             form.save()
             messages.success(request, 'Auction create')  # nuova asta creata con i parametri scelti
             return redirect('new_auction')
@@ -42,7 +42,7 @@ def betting(request):
     last_bets = last_bet(id_)
     last_users = last_user(id_)
     last_dates = last_date(id_)
-    check = check_data(auction[0].close_data)  # secondo check per la data di chiusura dell'asta
+    check = check_data(auction[0].close_date)  # secondo check per la data di chiusura dell'asta
     all_bets = len_bets(id_)
     if check is True:
         if request.method == 'POST':
@@ -84,7 +84,7 @@ def betting(request):
 def home(request):
     auction = Auction.objects.filter(active=True)
     for data in auction:
-        check = check_data(data.close_data)  # primo check data fine asta
+        check = check_data(data.close_date)  # primo check data fine asta
         if check is False:
             data.active = False
             data.save()

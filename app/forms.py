@@ -13,7 +13,7 @@ class RegistrationForm(UserCreationForm):
 class AuctionForm(forms.ModelForm):
     class Meta:
         model = Auction
-        fields = ['object', 'description', 'close_data', 'open_price']
+        fields = ['object', 'description', 'close_date', 'open_price']
 
 
 class AuctionBet(forms.ModelForm):
