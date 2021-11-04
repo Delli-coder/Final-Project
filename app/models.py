@@ -14,10 +14,11 @@ class Profile(models.Model):
 class Auction(models.Model):
     object = models.CharField(max_length=50)
     description = models.CharField(max_length=256, default='')
-    open_date = models.DateTimeField()
+    image = models.ImageField(upload_to='media/', null=True, blank=True)
+    open_date = models.DateTimeField(auto_now_add=True)
     close_date = models.DateTimeField()
     total_bet = models.IntegerField(default=0)
-    open_price = models.FloatField(default=0)
+    open_price = models.FloatField(default=0, )
     close_price = models.FloatField(default=0)
     winner = models.CharField(max_length=256, default='')
     active = models.BooleanField(default=True)

@@ -24,9 +24,8 @@ def register(request):
 @login_required(login_url='login')
 def new_auction(request):
     if request.method == 'POST':
-        form = AuctionForm(request.POST)
+        form = AuctionForm(request.POST, request.FILES)
         if form.is_valid():
-            form.instance.open_date = datetime.now()
             form.save()
             messages.success(request, 'Auction create')  # nuova asta creata con i parametri scelti
             return redirect('new_auction')

@@ -11,5 +11,4 @@ sqlparse==0.2.4
 typing-extensions==3.10.0.2
 wheel==0.36.2
 requests==2.26.0
-
-python version == 3.6
+Pillow==8.4.0
